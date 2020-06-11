@@ -1,3 +1,6 @@
+package life;
+
+import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -5,31 +8,51 @@ class Algorithm {
 
     static Scanner scanner = new Scanner(System.in);
     static Random random;
-    static int seed;
-    static final int minAlive = 2; //minimal number of alive neighbours
-    static final int maxAlive = 3; //maximal number of alive neighbours
-    static final int rebornValue = 3; //number of alive neighbours
+    private static long seed = System.currentTimeMillis() % 50;
+    private static final int MIN_ALIVE = 2; //minimal number of alive neighbours
+    private static final int MAX_ALIVE = 3; //maximal number of alive neighbours
+    private static final int REBORN_VALUE = 3; //number of alive neighbours
     //needed to reborn dead cell
+    private static int displayTime = 400; //frame's displaying duration (ms)
 
-    static void universeInit(Universe universe) {
+
+    public static void initUniverse(Universe universe) {
         //scanning the input for the details
-        System.out.println("\nEnter the size of the world:");
-        int n = scanner.nextInt();      //matrix (world) size
-        System.out.println("\nEnter the seed:");
-        seed = scanner.nextInt();
+        boolean isParameterSet = false;
+        int universeSize = 0;
 
-        //creating the initial generation
-        universe.setCurrentGeneration(new boolean[n][n]);
-        random = new Random(seed);
-        for (int x = 0; x < n; x++) {
-            for (int y =0; y < n; y++) {
-                universe.getCurrentGeneration()[x][y] = random.nextBoolean();
+        while(!isParameterSet) {
+            try {
+                Main.printToConsole("Enter the size of the world:");
+                universeSize = scanner.nextInt();      //matrix (world) size
+                isParameterSet = true;
+            } catch (InputMismatchException e) {
+                Main.printToConsole("Incorrect value. Please type again.");
             }
         }
+
+        //creating the initial generation
+        universe.setCurrentGeneration(new boolean[universeSize][universeSize]);
+        random = new Random(seed);
+        universe.setAliveNumber(0);
+        boolean currentCell;
+        for (int x = 0; x < universeSize; x++) {
+            for (int y =0; y < universeSize; y++) {
+                currentCell = random.nextBoolean();
+                universe.getCurrentGeneration()[x][y] = currentCell;
+                if (currentCell == true) {
+                    universe.incrementAliveNumber();
+                }
+            }
+        }
+        universe.setGenerationNumber(1);
     }
 
-    static void universeDraw(Universe universe) {
+    public static void drawUniverse(Universe universe) {
         //drawing current generation
+        Main.clearConsole();
+        System.out.println("Generation #" + universe.getGenerationNumber());
+        System.out.println("Alive: " + universe.getAliveNumber());
         for (int x = 0; x < universe.getCurrentGeneration().length; x++) {
             for (int y =0; y < universe.getCurrentGeneration().length; y++) {
                 if (universe.getCurrentGeneration()[x][y]) {
@@ -42,7 +65,7 @@ class Algorithm {
         }
     }
 
-    static void nextGeneration(Universe universe) {
+    public static void generateNext(Universe universe) {
 
         int universeSize = universe.getCurrentGeneration().length;
         boolean[][] NextGeneration = new boolean[universeSize][universeSize];
@@ -50,6 +73,7 @@ class Algorithm {
         int neighbourY;
         int aliveCells = 0;
 
+        universe.setAliveNumber(0); //computing amount of alive cells
         for (int x = 0; x < universeSize; x++) {
             for (int y = 0; y < universeSize; y++) {
 
@@ -97,14 +121,37 @@ class Algorithm {
 
                 //computing the state of current cell
                 NextGeneration[x][y] = false;
-                if (universe.getCurrentGeneration()[x][y] && (aliveCells>=minAlive && aliveCells<=maxAlive) ) {
+                if (universe.getCurrentGeneration()[x][y] && (aliveCells>= MIN_ALIVE && aliveCells<= MAX_ALIVE) ) {
                     NextGeneration[x][y] = true;
-                } else if (!universe.getCurrentGeneration()[x][y] && aliveCells==rebornValue) {
+                    universe.incrementAliveNumber();    //computing amount of alive cells
+                } else if (!universe.getCurrentGeneration()[x][y] && aliveCells== REBORN_VALUE) {
                     NextGeneration[x][y] = true;
+                    universe.incrementAliveNumber();    //computing amount of alive cells
                 }
                 aliveCells = 0;
+
             }
         }
         universe.setCurrentGeneration(NextGeneration);
+        universe.incrementGenerationNumber();
     }
+
+    public static void simulate(int simDuration, Universe universe) throws InterruptedException {
+
+        if (universe.getGenerationNumber() == 0)
+            initUniverse(universe);
+        drawUniverse(universe);
+        Thread.sleep(displayTime);
+        for (int i = 0; i < simDuration; i++) {
+            Thread.sleep(displayTime);
+            generateNext(universe);
+            drawUniverse(universe);
+        }
+
+    }
+
+    public void setDisplayTime(int displayTime) {
+        Algorithm.displayTime = displayTime;
+    }
+
 }
