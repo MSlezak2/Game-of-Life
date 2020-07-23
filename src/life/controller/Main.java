@@ -1,11 +1,16 @@
-package life;
+package life.controller;
+
+import life.model.Algorithm;
+import life.model.Universe;
+import life.view.GameOfLife;
 
 import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
 
-        Algorithm.simulate(12,new Universe());
+//        Algorithm.simulateInConsole(12,new Universe());
+        GameOfLife gol = new GameOfLife();
 
     }
 

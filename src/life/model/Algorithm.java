@@ -1,10 +1,12 @@
-package life;
+package life.model;
+
+import life.controller.Main;
 
 import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 
-class Algorithm {
+public class Algorithm {
 
     static Scanner scanner = new Scanner(System.in);
     static Random random;
@@ -48,7 +50,7 @@ class Algorithm {
         universe.setGenerationNumber(1);
     }
 
-    public static void drawUniverse(Universe universe) {
+    public static void drawUniverseInConsole(Universe universe) {
         //drawing current generation
         Main.clearConsole();
         System.out.println("Generation #" + universe.getGenerationNumber());
@@ -136,16 +138,16 @@ class Algorithm {
         universe.incrementGenerationNumber();
     }
 
-    public static void simulate(int simDuration, Universe universe) throws InterruptedException {
+    public static void simulateInConsole(int simDuration, Universe universe) throws InterruptedException {
 
         if (universe.getGenerationNumber() == 0)
             initUniverse(universe);
-        drawUniverse(universe);
+        drawUniverseInConsole(universe);
         Thread.sleep(displayTime);
         for (int i = 0; i < simDuration; i++) {
             Thread.sleep(displayTime);
             generateNext(universe);
-            drawUniverse(universe);
+            drawUniverseInConsole(universe);
         }
 
     }

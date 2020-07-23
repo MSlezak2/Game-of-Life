@@ -1,6 +1,6 @@
-package life;
+package life.model;
 
-class Universe {
+public class Universe {
 
     private boolean[][] currentGeneration;
     private int aliveNumber;
