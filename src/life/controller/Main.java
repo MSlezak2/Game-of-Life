@@ -10,7 +10,7 @@ public class Main {
     public static void main(String[] args) throws InterruptedException {
 
 //        Algorithm.simulateInConsole(12,new Universe());
-        GameOfLife gol = new GameOfLife();
+        GameOfLife gol = new GameOfLife(600, 700);
 
     }
 
