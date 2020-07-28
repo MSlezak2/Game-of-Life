@@ -1,6 +1,6 @@
 package life.model;
 
-import life.controller.Main;
+import life.controller.Controller;
 
 import java.util.InputMismatchException;
 import java.util.Random;
@@ -18,20 +18,20 @@ public class Algorithm {
     private static int displayTime = 400; //frame's displaying duration (ms)
 
 
-    public static void initUniverse(Universe universe) {
-        //scanning the input for the details
-        boolean isParameterSet = false;
-        int universeSize = 0;
-
-        while(!isParameterSet) {
-            try {
-                Main.printToConsole("Enter the size of the world:");
-                universeSize = scanner.nextInt();      //matrix (world) size
-                isParameterSet = true;
-            } catch (InputMismatchException e) {
-                Main.printToConsole("Incorrect value. Please type again.");
-            }
-        }
+    public static void initUniverse(Universe universe, int universeSize) {
+//        //scanning the input for the details
+//        boolean isParameterSet = false;
+//        int universeSize = 0;
+//
+//        while(!isParameterSet) {
+//            try {
+//                Controller.printToConsole("Enter the size of the world:");
+//                universeSize = scanner.nextInt();      //matrix (world) size
+//                isParameterSet = true;
+//            } catch (InputMismatchException e) {
+//                Controller.printToConsole("Incorrect value. Please type again.");
+//            }
+//        }
 
         //creating the initial generation
         universe.setCurrentGeneration(new boolean[universeSize][universeSize]);
@@ -48,23 +48,6 @@ public class Algorithm {
             }
         }
         universe.setGenerationNumber(1);
-    }
-
-    public static void drawUniverseInConsole(Universe universe) {
-        //drawing current generation
-        Main.clearConsole();
-        System.out.println("Generation #" + universe.getGenerationNumber());
-        System.out.println("Alive: " + universe.getAliveNumber());
-        for (int x = 0; x < universe.getCurrentGeneration().length; x++) {
-            for (int y =0; y < universe.getCurrentGeneration().length; y++) {
-                if (universe.getCurrentGeneration()[x][y]) {
-                    System.out.print("O");
-                } else {
-                    System.out.print(" ");
-                }
-            }
-            System.out.print("\n");
-        }
     }
 
     public static void generateNext(Universe universe) {
@@ -138,22 +121,42 @@ public class Algorithm {
         universe.incrementGenerationNumber();
     }
 
-    public static void simulateInConsole(int simDuration, Universe universe) throws InterruptedException {
-
-        if (universe.getGenerationNumber() == 0)
-            initUniverse(universe);
-        drawUniverseInConsole(universe);
-        Thread.sleep(displayTime);
-        for (int i = 0; i < simDuration; i++) {
-            Thread.sleep(displayTime);
-            generateNext(universe);
-            drawUniverseInConsole(universe);
-        }
-
-    }
-
     public void setDisplayTime(int displayTime) {
         Algorithm.displayTime = displayTime;
     }
+
+
+//    public static void simulateInConsole(int simDuration, Universe universe) throws InterruptedException {
+//
+//        if (universe.getGenerationNumber() == 0)
+//            initUniverse(universe);
+//        drawUniverseInConsole(universe);
+//        Thread.sleep(displayTime);
+//        for (int i = 0; i < simDuration; i++) {
+//            Thread.sleep(displayTime);
+//            generateNext(universe);
+//            drawUniverseInConsole(universe);
+//        }
+//
+//    }
+
+
+
+//    public static void drawUniverseInConsole(Universe universe) {
+//        //drawing current generation
+//        Controller.clearConsole();
+//        System.out.println("Generation #" + universe.getGenerationNumber());
+//        System.out.println("Alive: " + universe.getAliveNumber());
+//        for (int x = 0; x < universe.getCurrentGeneration().length; x++) {
+//            for (int y =0; y < universe.getCurrentGeneration().length; y++) {
+//                if (universe.getCurrentGeneration()[x][y]) {
+//                    System.out.print("O");
+//                } else {
+//                    System.out.print(" ");
+//                }
+//            }
+//            System.out.print("\n");
+//        }
+//    }
 
 }

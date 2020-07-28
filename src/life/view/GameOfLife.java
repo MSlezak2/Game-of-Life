@@ -1,14 +1,16 @@
 package life.view;
 
+import life.model.Universe;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class GameOfLife extends JFrame {
 
     private JPanel detailsPanel;
-    public UniverseViewPanel universePanel;
-    private JLabel currentGenerationLabel;
-    private JLabel aliveNumberLabel;
+    private UniverseViewPanel universePanel;
+    private JLabel GenerationLabel;
+    private JLabel AliveLabel;
 
     public GameOfLife(int windowWidth, int windowHeight) {
 
@@ -28,7 +30,6 @@ public class GameOfLife extends JFrame {
         setSize(width,height);
         setVisible(true);
 
-
     }
 
     private void setupDetailsPanel() {
@@ -37,11 +38,11 @@ public class GameOfLife extends JFrame {
         detailsPanel.setBackground(new Color(150, 200, 200));
         detailsPanel.setPreferredSize(new Dimension(this.getWidth(),(int) (this.getHeight() * 0.1)));
 
-        currentGenerationLabel = new JLabel("Generation #");
-        detailsPanel.add(currentGenerationLabel);
+        GenerationLabel = new JLabel("Generation #");
+        detailsPanel.add(GenerationLabel);
 
-        aliveNumberLabel = new JLabel("Alive: ");
-        detailsPanel.add(aliveNumberLabel);
+        AliveLabel = new JLabel("Alive: ");
+        detailsPanel.add(AliveLabel);
 
         add(detailsPanel);
 
@@ -57,4 +58,14 @@ public class GameOfLife extends JFrame {
 
     }
 
+    public void drawUniverse(Universe universe) {
+
+        GenerationLabel.setText("Generation #" + universe.getGenerationNumber());
+        AliveLabel.setText("Alive: " + universe.getAliveNumber());
+        universePanel.setUniverseArray(universe.getCurrentGeneration());
+        universePanel.repaint();
+
+    }
+
 }
+
