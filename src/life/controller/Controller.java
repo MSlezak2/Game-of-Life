@@ -1,6 +1,6 @@
 package life.controller;
 
-import life.model.Algorithm;
+import static life.model.Algorithm.*;
 import life.model.Universe;
 import life.view.GameOfLife;
 
@@ -12,6 +12,23 @@ public class Controller {
 
 //        Algorithm.simulateInConsole(12,new Universe());
         GameOfLife gol = new GameOfLife(600, 700);
+        Universe universe = new Universe();
+
+        Thread simulationThread = new Thread(() -> {
+            initUniverse(universe,400);
+            while (true) {
+                try {
+                    Thread.sleep(20);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                generateNext(universe);
+                gol.drawUniverse(universe);
+            }
+
+        });
+
+        simulationThread.start();
 
     }
 
