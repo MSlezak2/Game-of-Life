@@ -11,19 +11,20 @@ public class Controller {
     public static void main(String[] args) throws InterruptedException {
 
 //        Algorithm.simulateInConsole(12,new Universe());
-        GameOfLife gol = new GameOfLife(600, 700);
+        GameOfLife gol = new GameOfLife(900, 700);
         Universe universe = new Universe();
 
         Thread simulationThread = new Thread(() -> {
-            initUniverse(universe,400);
+            initUniverse(universe,20);
             while (true) {
                 try {
-                    Thread.sleep(20);
+                    Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
                 generateNext(universe);
                 gol.drawUniverse(universe);
+
             }
 
         });

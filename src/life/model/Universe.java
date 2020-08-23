@@ -21,6 +21,7 @@ public class Universe {
     public int getGenerationNumber() {
         return generationNumber;
     }
+
     //setters
 
     public void setCurrentGeneration(boolean[][] currentGeneration) {
