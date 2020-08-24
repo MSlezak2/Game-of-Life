@@ -9,8 +9,10 @@ public class UniverseViewPanel extends JPanel {
     private boolean[][] universeArray;
     private int rows;   //how many rows and columns of cells the universe contains of
     private int cols;
-    private int width;  //what size (in pixes) the universe has at the moment
-    private int height;
+    private int universeWidth;  //what size (in pixes) the universe has at the moment
+    private int universeHeight;
+    private int panelWidth;
+    private int panelHeight;
 
 
     public UniverseViewPanel() {
@@ -22,7 +24,9 @@ public class UniverseViewPanel extends JPanel {
 
         Graphics2D g2d = (Graphics2D) g;
 
-        calculateSizesOfCells();
+        if (hasFrameBeenResized()) {
+            calculateSizesOfCells();
+        }
 
         if (universeArray != null) {
             drawUniverse(g2d);
@@ -95,8 +99,18 @@ public class UniverseViewPanel extends JPanel {
 
     }
 
-    private void calculateSizesOfCells() {
+    private boolean hasFrameBeenResized() {
+        if (panelWidth != getWidth() || panelHeight != getHeight()) {
+            panelWidth = getWidth();
+            panelHeight = getHeight();
+            System.out.println("function"+ panelWidth + " " + panelHeight);
+            return true;
+        }
+            return false;
+    }
 
+    private void calculateSizesOfCells() {
+        
     }
 
     public void setUniverseArray(boolean[][] universeArray) {
