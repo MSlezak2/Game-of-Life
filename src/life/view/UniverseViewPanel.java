@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
+
 public class UniverseViewPanel extends JPanel {
 
     private boolean[][] universeArray;
@@ -13,6 +14,10 @@ public class UniverseViewPanel extends JPanel {
     private int universeHeight;
     private int panelWidth;
     private int panelHeight;
+    private int cellWidth;
+    private int cellHeight;
+    private int leftUpperCornerX;
+    private int leftUpperCornerY;
 
 
     public UniverseViewPanel() {
@@ -24,15 +29,27 @@ public class UniverseViewPanel extends JPanel {
 
         Graphics2D g2d = (Graphics2D) g;
 
-        if (hasFrameBeenResized()) {
-            calculateSizesOfCells();
-        }
-
         if (universeArray != null) {
-            drawUniverse(g2d);
-        }
 
-        //drawGrid(g2d,0,0,getWidth(),getHeight(),rows,cols);
+            if (hasFrameBeenResized()) {
+                //test
+//                panelWidth = 700;
+//                panelHeight = 500;
+//                cols = 60;
+//                rows = 60;
+                calculateSizeOfCells();
+//                System.out.println("cellWidth"+cellWidth);
+//                System.out.println("cellHeight"+cellHeight);
+//                System.out.println("universeWidth"+universeWidth);
+//                System.out.println("universeHeight"+universeHeight);
+//                System.out.println("leftUpperCornerX"+leftUpperCornerX);
+//                System.out.println("leftUpperCornerY"+leftUpperCornerY);
+            }
+
+            drawUniverse(g2d);
+
+            //drawGrid(g2d,0,0,getWidth(),getHeight(),rows,cols);
+        }
 
     }
 
@@ -103,14 +120,25 @@ public class UniverseViewPanel extends JPanel {
         if (panelWidth != getWidth() || panelHeight != getHeight()) {
             panelWidth = getWidth();
             panelHeight = getHeight();
-            System.out.println("function"+ panelWidth + " " + panelHeight);
             return true;
         }
             return false;
     }
 
-    private void calculateSizesOfCells() {
-        
+    private void calculateSizeOfCells() {
+
+        // computing the size (in pixels) of the universe and single cell
+        int tempUniverseWidth = Math.min(panelWidth,panelHeight);
+        int tempUniverseHeight = Math.min(panelWidth,panelHeight);
+        cellWidth = Math.max(1,tempUniverseWidth / cols);
+        cellHeight = Math.max(1,tempUniverseHeight / rows);
+        universeWidth = cols * cellWidth;
+        universeHeight = rows * cellHeight;
+        leftUpperCornerX = (panelWidth - universeWidth) / 2;
+        leftUpperCornerY = (panelHeight - universeHeight) / 2;
+
+//TODO: introduce restriction that prevents from shrinking the frame too much (all cells should fit)
+
     }
 
     public void setUniverseArray(boolean[][] universeArray) {
