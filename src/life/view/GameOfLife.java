@@ -70,8 +70,6 @@ public class GameOfLife extends JFrame {
 //        universePanel.setSize(universeImageWidth,universeImageHeight);
 //        setSize(universeImageWidth + 6,getHeight());
         universePanel.repaint();
-        System.out.println("Frame"+getSize());
-        System.out.println("panel"+universePanel.getSize());
 //        pack();
 
     }

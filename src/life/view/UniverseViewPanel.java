@@ -21,7 +21,8 @@ public class UniverseViewPanel extends JPanel {
 
 
     public UniverseViewPanel() {
-
+        panelWidth = getWidth();
+        panelHeight = getHeight();
     }
 
     @Override
@@ -48,13 +49,14 @@ public class UniverseViewPanel extends JPanel {
 
             drawUniverse(g2d);
 
-            //drawGrid(g2d,0,0,getWidth(),getHeight(),rows,cols);
+            drawGrid(g2d);
+
         }
 
     }
 
     /** drawGrid() method should be invoked after drawUniverse() method */
-    private void drawGrid(Graphics2D g2d, int x0, int y0, int width, int height, int rows, int cols) {
+    private void drawGrid(Graphics2D g2d) {
 
         int x1,x2,y1,y2;
 
@@ -63,9 +65,9 @@ public class UniverseViewPanel extends JPanel {
         // drawing horizontal lines
         for (int i = 0; i <= rows; i++) {
 
-            x1 = x0;
-            y1 = i * height / rows;
-            x2 = x0 + width;
+            x1 = leftUpperCornerX;
+            y1 = leftUpperCornerY + i * cellHeight;
+            x2 = leftUpperCornerX + universeWidth;
             y2 = y1;
             g2d.drawLine(x1,y1,x2,y2);
 
@@ -74,10 +76,10 @@ public class UniverseViewPanel extends JPanel {
         // drawing vertical lines
         for (int i = 0; i <= rows; i++) {
 
-            x1 = i * width / cols;
-            y1 = y0;
+            x1 = leftUpperCornerX + i * cellWidth;
+            y1 = leftUpperCornerY;
             x2 = x1;
-            y2 = y0 + height;
+            y2 = leftUpperCornerY + universeHeight;
             g2d.drawLine(x1,y1,x2,y2);
 
         }
@@ -86,17 +88,15 @@ public class UniverseViewPanel extends JPanel {
 
     void drawUniverse(Graphics2D g2d) {
 
-        int y = 0;                   // entity y coordinate
-        int dy = Math.max(getHeight() / cols, 1); // height of the single entity
-        int x = 0;                   // entity x coordinate
-        int dx = Math.max(getWidth() / rows, 1); // width of the single entity
+        int y = leftUpperCornerY;                   // entity y coordinate
+        int x = leftUpperCornerX;                   // entity x coordinate
         Rectangle2D rectangle;
 
         for (int i = 0; i < rows; i++) {
 
             for (int j = 0; j < cols; j++) {
 
-                rectangle = new Rectangle2D.Double(x, y, dx, dy);
+                rectangle = new Rectangle2D.Double(x, y, cellWidth, cellHeight);
 
                 if (universeArray[i][j] == true) {
                     g2d.setPaint(Color.black);
@@ -105,12 +105,12 @@ public class UniverseViewPanel extends JPanel {
                 }
 
                 g2d.fill(rectangle);
-                x += dx;
+                x += cellWidth;
 
             }
 
-            x = 0;
-            y += dy;
+            x = leftUpperCornerX;
+            y += cellHeight;
 
         }
 
@@ -122,7 +122,7 @@ public class UniverseViewPanel extends JPanel {
             panelHeight = getHeight();
             return true;
         }
-            return false;
+        return false;
     }
 
     private void calculateSizeOfCells() {
