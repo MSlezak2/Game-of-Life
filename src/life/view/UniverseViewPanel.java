@@ -24,11 +24,13 @@ public class UniverseViewPanel extends JPanel {
         panelWidth = getWidth();
         panelHeight = getHeight();
     }
-
+    
     @Override
     protected void paintComponent(Graphics g) {
 
         Graphics2D g2d = (Graphics2D) g;
+
+        super.paintComponent(g); //without that line there's a mess
 
         if (universeArray != null) {
 
