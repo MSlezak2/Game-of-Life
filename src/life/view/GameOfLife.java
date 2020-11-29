@@ -60,19 +60,32 @@ public class GameOfLife extends JFrame {
 
     }
 
+
     public void drawUniverse(Universe universe) {
 
         generationNumberLabel.setText("Generation #" + universe.getGenerationNumber());
         aliveNumberLabel.setText("Alive: " + universe.getAliveNumber());
         universePanel.setUniverseArray(universe.getCurrentGeneration());
-//        int universeImageWidth = universePanel.getCols() * (Math.max(getWidth() / universePanel.getCols(), 1)); // width of the single entity
-//        int universeImageHeight = universePanel.getRows() * (Math.max(getHeight() / universePanel.getRows(), 1)); // height of the single entity
-//        universePanel.setSize(universeImageWidth,universeImageHeight);
-//        setSize(universeImageWidth + 6,getHeight());
         universePanel.repaint();
-//        pack();
 
+        // setting the minimum size of the frame (to prevent cropping view of the universe)
+        calculateMinWidth();
+        calculateMinHeight();
+        setMinimumSize(new Dimension(minWidth,minHeight));
     }
 
+    private void calculateMinWidth(){
+        // the width of the window couldn't be smaller than the number of
+        // columns in the universe multiplied by 2 and then added to 1
+        // (because of the grid)
+        minWidth = 2 * universePanel.getCols() + 1;
+    }
+
+    private void calculateMinHeight(){
+        // the height of the window couldn't be smaller than the number of
+        // rows in the universe (+ the grid) and the height of detailsPanel
+        // combined
+        minHeight = 2 * universePanel.getRows() + 1 + detailsPanel.getHeight();
+    }
 }
 

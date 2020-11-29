@@ -24,7 +24,7 @@ public class UniverseViewPanel extends JPanel {
         panelWidth = getWidth();
         panelHeight = getHeight();
     }
-    
+
     @Override
     protected void paintComponent(Graphics g) {
 
@@ -132,14 +132,12 @@ public class UniverseViewPanel extends JPanel {
         // computing the size (in pixels) of the universe and single cell
         int tempUniverseWidth = Math.min(panelWidth,panelHeight);
         int tempUniverseHeight = Math.min(panelWidth,panelHeight);
-        cellWidth = Math.max(1,tempUniverseWidth / cols);
-        cellHeight = Math.max(1,tempUniverseHeight / rows);
+        cellWidth = Math.max(2,tempUniverseWidth / cols);
+        cellHeight = Math.max(2,tempUniverseHeight / rows);
         universeWidth = cols * cellWidth;
         universeHeight = rows * cellHeight;
         leftUpperCornerX = (panelWidth - universeWidth) / 2;
         leftUpperCornerY = (panelHeight - universeHeight) / 2;
-
-//TODO: introduce restriction that prevents from shrinking the frame too much (all cells should fit)
 
     }
 
