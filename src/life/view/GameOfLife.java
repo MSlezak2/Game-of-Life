@@ -1,5 +1,6 @@
 package life.view;
 
+import life.controller.Controller;
 import life.model.Universe;
 
 import javax.swing.*;
@@ -45,6 +46,11 @@ public class GameOfLife extends JFrame {
 
         aliveNumberLabel = new JLabel("Alive: ");
         detailsPanel.add(aliveNumberLabel);
+
+        //TODO: clean the placing of the buttons in GUI
+        JButton pauseButton = new JButton("PAUSE");
+        pauseButton.addActionListener(e -> Controller.pause = !Controller.pause);
+        add(pauseButton);
 
         add(detailsPanel);
 

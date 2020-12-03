@@ -8,6 +8,10 @@ import java.io.IOException;
 
 public class Controller {
 
+    //TODO: think whether it should be static
+    public static boolean pause = false;
+
+    //TODO: take a look at warnings
     public static void main(String[] args) throws InterruptedException {
 
 //        Algorithm.simulateInConsole(12,new Universe());
@@ -15,15 +19,17 @@ public class Controller {
         Universe universe = new Universe();
 
         Thread simulationThread = new Thread(() -> {
-            initUniverse(universe,20);
+            initUniverse(universe,200);
             while (true) {
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(25);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                generateNext(universe);
-                gol.drawUniverse(universe);
+                if (!pause) {
+                    generateNext(universe);
+                    gol.drawUniverse(universe);
+                }
 
             }
 
