@@ -1,6 +1,5 @@
 package life.view;
 
-import life.controller.Controller;
 import life.model.Universe;
 
 import javax.swing.*;
@@ -14,6 +13,7 @@ public class GameOfLife extends JFrame {
     private JLabel aliveNumberLabel;
     private int minWidth = 400;
     private int minHeight = 500;
+    private boolean paused = true;
 
     public GameOfLife(int windowWidth, int windowHeight) {
 
@@ -49,7 +49,7 @@ public class GameOfLife extends JFrame {
 
         //TODO: clean the placing of the buttons in GUI
         JButton pauseButton = new JButton("PAUSE");
-        pauseButton.addActionListener(e -> Controller.pause = !Controller.pause);
+        pauseButton.addActionListener(e -> paused = !paused);
         add(pauseButton);
 
         add(detailsPanel);
@@ -93,5 +93,8 @@ public class GameOfLife extends JFrame {
         // combined
         minHeight = 2 * universePanel.getRows() + 1 + detailsPanel.getHeight();
     }
-}
 
+    public boolean isPaused(){
+        return paused;
+    }
+}

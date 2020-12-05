@@ -1,3 +1,4 @@
+//TODO: refactor code to make it more MVC like ;)
 package life.controller;
 
 import static life.model.Algorithm.*;
@@ -8,8 +9,7 @@ import java.io.IOException;
 
 public class Controller {
 
-    //TODO: think whether it should be static
-    public static boolean pause = false;
+    //TODO: how to delete branch at Origin?
 
     //TODO: take a look at warnings
     public static void main(String[] args) throws InterruptedException {
@@ -26,7 +26,7 @@ public class Controller {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                if (!pause) {
+                if (!gol.isPaused()) {
                     generateNext(universe);
                     gol.drawUniverse(universe);
                 }
