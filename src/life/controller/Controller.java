@@ -9,18 +9,22 @@ import java.io.IOException;
 
 public class Controller {
 
-    //TODO: how to delete branch at Origin?
-
     //TODO: take a look at warnings
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args){
 
 //        Algorithm.simulateInConsole(12,new Universe());
         GameOfLife gol = new GameOfLife(900, 700);
         Universe universe = new Universe();
 
         Thread simulationThread = new Thread(() -> {
-            initUniverse(universe,200);
+
             while (true) {
+
+                if ( gol.isRestartRequested() ) {
+                    initUniverse(universe,30);
+                    gol.drawUniverse(universe);
+                    gol.setRestartRequested(false);
+                }
                 try {
                     Thread.sleep(25);
                 } catch (InterruptedException e) {

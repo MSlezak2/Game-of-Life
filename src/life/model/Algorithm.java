@@ -10,12 +10,12 @@ public class Algorithm {
 
     static Scanner scanner = new Scanner(System.in);
     static Random random;
-    private static long seed = System.currentTimeMillis() % 50;
+    private static long seed;
     private static final int MIN_ALIVE = 2; //minimal number of alive neighbours
     private static final int MAX_ALIVE = 3; //maximal number of alive neighbours
     private static final int REBORN_VALUE = 3; //number of alive neighbours
     //needed to reborn dead cell
-    private static int displayTime = 400; //frame's displaying duration (ms)
+//    private static int displayTime = 400; //frame's displaying duration (ms)
 
 
     public static void initUniverse(Universe universe, int universeSize) {
@@ -34,6 +34,7 @@ public class Algorithm {
 //        }
 
         //creating the initial generation
+        seed = System.currentTimeMillis() % 50;
         universe.setCurrentGeneration(new boolean[universeSize][universeSize]);
         random = new Random(seed);
         universe.setAliveNumber(0);
@@ -121,11 +122,11 @@ public class Algorithm {
         universe.incrementGenerationNumber();
     }
 
-    public void setDisplayTime(int displayTime) {
-        Algorithm.displayTime = displayTime;
-    }
-
-
+//    public void setDisplayTime(int displayTime) {
+//        Algorithm.displayTime = displayTime;
+//    }
+//
+//
 //    public static void simulateInConsole(int simDuration, Universe universe) throws InterruptedException {
 //
 //        if (universe.getGenerationNumber() == 0)
@@ -158,5 +159,5 @@ public class Algorithm {
 //            System.out.print("\n");
 //        }
 //    }
-
+//
 }

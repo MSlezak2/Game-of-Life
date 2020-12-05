@@ -11,9 +11,11 @@ public class GameOfLife extends JFrame {
     private UniverseViewPanel universePanel;
     private JLabel generationNumberLabel;
     private JLabel aliveNumberLabel;
-    private int minWidth = 400;
-    private int minHeight = 500;
+    private int minWidth;
+    private int minHeight;
     private boolean paused = true;
+
+    private boolean restartRequested = true;
 
     public GameOfLife(int windowWidth, int windowHeight) {
 
@@ -37,20 +39,25 @@ public class GameOfLife extends JFrame {
 
     private void setupDetailsPanel() {
 
-        detailsPanel = new JPanel(new GridLayout(2, 1));
+        detailsPanel = new JPanel(new GridLayout(2, 2, (int)( 0.1*getWidth() ), (int)( 0.005*getHeight() )));
         detailsPanel.setBackground(new Color(150, 200, 200));
         detailsPanel.setPreferredSize(new Dimension(getWidth(),(int) (getHeight() * 0.1)));
 
         generationNumberLabel = new JLabel("Generation #");
-        detailsPanel.add(generationNumberLabel);
 
         aliveNumberLabel = new JLabel("Alive: ");
-        detailsPanel.add(aliveNumberLabel);
 
         //TODO: clean the placing of the buttons in GUI
         JButton pauseButton = new JButton("PAUSE");
         pauseButton.addActionListener(e -> paused = !paused);
-        add(pauseButton);
+
+        JButton restartButton = new JButton("RESTART");
+        restartButton.addActionListener(e -> restartRequested = true);
+
+        detailsPanel.add(generationNumberLabel);
+        detailsPanel.add(pauseButton);
+        detailsPanel.add(aliveNumberLabel);
+        detailsPanel.add(restartButton);
 
         add(detailsPanel);
 
@@ -96,5 +103,11 @@ public class GameOfLife extends JFrame {
 
     public boolean isPaused(){
         return paused;
+    }
+    public boolean isRestartRequested(){
+        return restartRequested;
+    }
+    public void setRestartRequested(boolean restartRequested) {
+        this.restartRequested = restartRequested;
     }
 }
