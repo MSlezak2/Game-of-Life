@@ -40,7 +40,7 @@ public class UniverseViewPanel extends JPanel {
 //                panelHeight = 500;
 //                cols = 60;
 //                rows = 60;
-                calculateSizeOfCells();
+                calculateSizeOfCells(); //TODO: do sth to get rid of double, redundant invocation of that method
 //                System.out.println("cellWidth"+cellWidth);
 //                System.out.println("cellHeight"+cellHeight);
 //                System.out.println("universeWidth"+universeWidth);
@@ -127,7 +127,7 @@ public class UniverseViewPanel extends JPanel {
         return false;
     }
 
-    private void calculateSizeOfCells() {
+    public void calculateSizeOfCells() {
 
         // computing the size (in pixels) of the universe and single cell
         int tempUniverseWidth = Math.min(panelWidth,panelHeight);

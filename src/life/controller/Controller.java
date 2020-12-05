@@ -5,8 +5,6 @@ import static life.model.Algorithm.*;
 import life.model.Universe;
 import life.view.GameOfLife;
 
-import java.io.IOException;
-
 public class Controller {
 
     //TODO: take a look at warnings
@@ -20,16 +18,20 @@ public class Controller {
 
             while (true) {
 
+                //starting / restarting the algorithm
                 if ( gol.isRestartRequested() ) {
-                    initUniverse(universe,30);
+                    initUniverse(universe,gol.getRequestedSize());
+//                    gol.calculateSizeOfCells(); //to get rid of a matrix too big for the frame
                     gol.drawUniverse(universe);
                     gol.setRestartRequested(false);
                 }
                 try {
-                    Thread.sleep(25);
+                    //waiting for the next iteration of the algorithm
+                    Thread.sleep((long)(1000 * ((double)(101 - gol.getRequestedSpeed())/101) ));
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                //generating next iteration of the algorithm
                 if (!gol.isPaused()) {
                     generateNext(universe);
                     gol.drawUniverse(universe);
