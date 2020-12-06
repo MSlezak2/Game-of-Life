@@ -1,40 +1,21 @@
 package life.model;
 
-import life.controller.Controller;
-
-import java.util.InputMismatchException;
 import java.util.Random;
-import java.util.Scanner;
 
 public class Algorithm {
 
-    static Scanner scanner = new Scanner(System.in);
     static Random random;
-    private static long seed;
     private static final int MIN_ALIVE = 2; //minimal number of alive neighbours
     private static final int MAX_ALIVE = 3; //maximal number of alive neighbours
     private static final int REBORN_VALUE = 3; //number of alive neighbours
     //needed to reborn dead cell
-//    private static int displayTime = 400; //frame's displaying duration (ms)
+
 
 
     public static void initUniverse(Universe universe, int universeSize) {
-//        //scanning the input for the details
-//        boolean isParameterSet = false;
-//        int universeSize = 0;
-//
-//        while(!isParameterSet) {
-//            try {
-//                Controller.printToConsole("Enter the size of the world:");
-//                universeSize = scanner.nextInt();      //matrix (world) size
-//                isParameterSet = true;
-//            } catch (InputMismatchException e) {
-//                Controller.printToConsole("Incorrect value. Please type again.");
-//            }
-//        }
 
         //creating the initial generation
-        seed = System.currentTimeMillis() % 50;
+        long seed = System.currentTimeMillis() % 50;
         universe.setCurrentGeneration(new boolean[universeSize][universeSize]);
         random = new Random(seed);
         universe.setAliveNumber(0);

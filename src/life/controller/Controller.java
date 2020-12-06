@@ -1,4 +1,5 @@
 //TODO: refactor code to make it more MVC like ;)
+//TODO: clean up the code in general
 package life.controller;
 
 import static life.model.Algorithm.*;

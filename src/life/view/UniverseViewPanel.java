@@ -35,18 +35,9 @@ public class UniverseViewPanel extends JPanel {
         if (universeArray != null) {
 
             if (hasFrameBeenResized()) {
-                //test
-//                panelWidth = 700;
-//                panelHeight = 500;
-//                cols = 60;
-//                rows = 60;
-                calculateSizeOfCells(); //TODO: do sth to get rid of double, redundant invocation of that method
-//                System.out.println("cellWidth"+cellWidth);
-//                System.out.println("cellHeight"+cellHeight);
-//                System.out.println("universeWidth"+universeWidth);
-//                System.out.println("universeHeight"+universeHeight);
-//                System.out.println("leftUpperCornerX"+leftUpperCornerX);
-//                System.out.println("leftUpperCornerY"+leftUpperCornerY);
+
+                calculateSizeOfCells();
+
             }
 
             drawUniverse(g2d);
@@ -127,7 +118,7 @@ public class UniverseViewPanel extends JPanel {
         return false;
     }
 
-    public void calculateSizeOfCells() {
+    void calculateSizeOfCells() {
 
         // computing the size (in pixels) of the universe and single cell
         int tempUniverseWidth = Math.min(panelWidth,panelHeight);

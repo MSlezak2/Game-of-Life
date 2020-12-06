@@ -3,8 +3,7 @@ package life.view;
 import life.model.Universe;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
+
 import java.awt.*;
 import java.util.Hashtable;
 
@@ -17,11 +16,8 @@ public class GameOfLife extends JFrame {
     private int minWidth;
     private int minHeight;
     private boolean paused = true;
-
-    private int requestedSpeed = 25; // the higher the smaller amount of time between iterations
-
+    private int requestedSpeed = 50; // the higher the smaller amount of time between iterations
     private boolean restartRequested = true;
-
     private int requestedSize = 50;
 
     public GameOfLife(int windowWidth, int windowHeight) {
@@ -46,40 +42,44 @@ public class GameOfLife extends JFrame {
 
     private void setupDetailsPanel() {
 
-        detailsPanel = new JPanel(new GridLayout(2, 3, (int)( 0.1*getWidth() ), (int)( 0.005*getHeight() )));
+        detailsPanel = new JPanel(new GridLayout(2, 3, (int)( 0.025*getHeight() ), (int)( 0.005*getHeight() )));
         detailsPanel.setBackground(new Color(150, 200, 200));
-        detailsPanel.setPreferredSize(new Dimension(getWidth(),(int) (getHeight() * 0.1)));
+        detailsPanel.setPreferredSize(new Dimension(getWidth(),(int) (getHeight() * 0.15)));
 
         generationNumberLabel = new JLabel("Generation #");
+        generationNumberLabel.setHorizontalAlignment(JLabel.CENTER);
+        generationNumberLabel.setFont(new Font(Font.SERIF,Font.BOLD,20));
 
         aliveNumberLabel = new JLabel("Alive: ");
+        aliveNumberLabel.setHorizontalAlignment(JLabel.CENTER);
+        aliveNumberLabel.setFont(new Font(Font.SERIF,Font.BOLD,20));
 
-        //TODO: clean the placing of the buttons in GUI
-        JButton pauseButton = new JButton("PAUSE");
-        pauseButton.addActionListener(e -> paused = !paused);
+        JButton pauseButton = new JButton("START");
+        pauseButton.setFont(new Font(Font.SERIF,Font.BOLD,20));
+        pauseButton.addActionListener(e -> {
+            if (paused == true) {
+                paused = false;
+                pauseButton.setText("PAUSE");
+            } else {
+                paused = true;
+                pauseButton.setText("START");
+            }
+        });
 
         JButton restartButton = new JButton("RESTART");
+        restartButton.setFont(new Font(Font.SERIF,Font.BOLD,20));
         restartButton.addActionListener(e -> restartRequested = true);
 
         JSlider speedSlider = new JSlider(JSlider.HORIZONTAL,0,100, requestedSpeed);
-        speedSlider.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                requestedSpeed = speedSlider.getValue();
-            }
-        });
-        speedSlider.setMajorTickSpacing(10);
+        speedSlider.addChangeListener(e -> requestedSpeed = speedSlider.getValue());
+        speedSlider.setMajorTickSpacing(25);
         speedSlider.setMinorTickSpacing(5);
         speedSlider.setPaintTicks(true);
         speedSlider.setPaintLabels(true);
+        speedSlider.setOpaque(false);
 
         JSlider sizeSlider = new JSlider(JSlider.HORIZONTAL,10,300, requestedSize);
-        sizeSlider.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                requestedSize = sizeSlider.getValue();
-            }
-        });
+        sizeSlider.addChangeListener(e -> requestedSize = sizeSlider.getValue());
         Hashtable labelTable = new Hashtable();
         labelTable.put(Integer.valueOf(10), new JLabel("10") );
         labelTable.putAll(sizeSlider.createStandardLabels(100,100));
@@ -87,7 +87,7 @@ public class GameOfLife extends JFrame {
         sizeSlider.setMinorTickSpacing(10);
         sizeSlider.setPaintTicks(true);
         sizeSlider.setPaintLabels(true);
-
+        sizeSlider.setOpaque(false);
 
         detailsPanel.add(generationNumberLabel);
         detailsPanel.add(speedSlider);
@@ -123,6 +123,7 @@ public class GameOfLife extends JFrame {
         calculateMinWidth();
         calculateMinHeight();
         setMinimumSize(new Dimension(minWidth,minHeight));
+
     }
 
     private void calculateMinWidth(){
