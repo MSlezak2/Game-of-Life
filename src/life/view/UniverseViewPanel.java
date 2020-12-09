@@ -24,7 +24,7 @@ class UniverseViewPanel extends JPanel {
         panelWidth = getWidth();
         panelHeight = getHeight();
 
-        setBackground(new Color(0xb3,0xe5,0xfc));
+        setBackground(GameOfLife.BOTTOM_PANEL_BCK);
 
     }
 
@@ -56,7 +56,7 @@ class UniverseViewPanel extends JPanel {
 
         int x1,x2,y1,y2;
 
-        g2d.setPaint(Color.gray);
+        g2d.setPaint(GameOfLife.GRID);
 
         // drawing horizontal lines
         for (int i = 0; i <= rows; i++) {
@@ -95,7 +95,7 @@ class UniverseViewPanel extends JPanel {
                 rectangle = new Rectangle2D.Double(x, y, cellWidth, cellHeight);
 
                 if (universeArray[i][j] == true) {
-                    g2d.setPaint(Color.black);
+                    g2d.setPaint(GameOfLife.ALIVE_PIXELS);
                 } else {
                     g2d.setPaint(Color.white);
                 }

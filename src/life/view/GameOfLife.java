@@ -20,13 +20,20 @@ public class GameOfLife extends JFrame {
 
     private int requestedSpeed = 50; // the higher the value the smaller amount of time between iterations
     private int requestedSize = 50; // size of the universe
+
+    static final Color TOP_PANEL_BCK = new Color(0x80,0xd8,0xff);
+    static final Color BOTTOM_PANEL_BCK = new Color(0xff,0xff,0xff);
+    static final Color BUTTONS_BCK = new Color(0xe3,0xf2,0xfd);
+    static final Color FONT = new Color(0x00,0x00,0x00);
+    static final Color ALIVE_PIXELS = new Color(0x49,0xa7,0xcc);
+    static final Color GRID = new Color(0xb1,0xbf,0xca);
+
+
     public GameOfLife(int windowWidth, int windowHeight) {
 
         setupFrame(windowWidth, windowHeight);
         setupDetailsPanel();
         setupUniversePanel();
-//        repaint();      // without those lines
-//        revalidate();   // gui is displayed unpredictably
 
     }
 

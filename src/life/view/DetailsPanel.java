@@ -15,7 +15,8 @@ class DetailsPanel extends JPanel {
 
     public DetailsPanel(GameOfLife got) {
 
-        setLayout(new GridLayout(2, 3, (int) (0.025 * getHeight()), (int) (0.005 * getHeight())));
+        setLayout(new GridLayout(2, 3, (int) (0.025 * got.getHeight()), (int) (0.005 * got.getHeight())));
+        setBackground(GameOfLife.TOP_PANEL_BCK);
 
         formatLabels();
         formatButtons(got);
@@ -42,20 +43,26 @@ class DetailsPanel extends JPanel {
                 pauseButton.setText("START");
             }
         });
+        pauseButton.setForeground(GameOfLife.FONT);
+        pauseButton.setBackground(GameOfLife.BUTTONS_BCK);
 
         restartButton = new JButton("RESTART");
         restartButton.setFont(new Font(Font.SERIF,Font.BOLD,20));
         restartButton.addActionListener(e -> gof.setRestartRequested(true));
+        restartButton.setForeground(GameOfLife.FONT);
+        restartButton.setBackground(GameOfLife.BUTTONS_BCK);
     }
 
     private void formatLabels() {
         generationNumberLabel = new JLabel("Generation #");
         generationNumberLabel.setHorizontalAlignment(JLabel.CENTER);
         generationNumberLabel.setFont(new Font(Font.SERIF,Font.BOLD,20));
+        generationNumberLabel.setForeground(GameOfLife.FONT);
 
         aliveNumberLabel = new JLabel("Alive: ");
         aliveNumberLabel.setHorizontalAlignment(JLabel.CENTER);
         aliveNumberLabel.setFont(new Font(Font.SERIF,Font.BOLD,20));
+        aliveNumberLabel.setForeground(GameOfLife.FONT);
     }
 
     private void formatSliders(GameOfLife gof) {
@@ -67,6 +74,7 @@ class DetailsPanel extends JPanel {
         speedSlider.setPaintTicks(true);
         speedSlider.setPaintLabels(true);
         speedSlider.setOpaque(false);
+        speedSlider.setForeground(GameOfLife.FONT);
 
         sizeSlider = new JSlider(JSlider.HORIZONTAL, 10, 300, gof.getRequestedSize());
         sizeSlider.addChangeListener(e -> gof.setRequestedSize(sizeSlider.getValue()));
@@ -81,6 +89,7 @@ class DetailsPanel extends JPanel {
         sizeSlider.setPaintTicks(true);
         sizeSlider.setPaintLabels(true);
         sizeSlider.setOpaque(false);
+        sizeSlider.setForeground(GameOfLife.FONT);
 
     }
 
