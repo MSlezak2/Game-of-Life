@@ -4,8 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
-
-public class UniverseViewPanel extends JPanel {
+class UniverseViewPanel extends JPanel {
 
     private boolean[][] universeArray;
     private int rows;   //how many rows and columns of cells the universe contains of
@@ -21,8 +20,12 @@ public class UniverseViewPanel extends JPanel {
 
 
     public UniverseViewPanel() {
+
         panelWidth = getWidth();
         panelHeight = getHeight();
+
+        setBackground(new Color(0xb3,0xe5,0xfc));
+
     }
 
     @Override

@@ -1,5 +1,6 @@
 //TODO: refactor code to make it more MVC like ;)
 //TODO: clean up the code in general
+//TODO: take a look at warnings
 package life.controller;
 
 import static life.model.Algorithm.*;
@@ -8,7 +9,7 @@ import life.view.GameOfLife;
 
 public class Controller {
 
-    //TODO: take a look at warnings
+
     public static void main(String[] args){
 
 //        Algorithm.simulateInConsole(12,new Universe());
@@ -33,7 +34,7 @@ public class Controller {
                     e.printStackTrace();
                 }
                 //generating next iteration of the algorithm
-                if (!gol.isPaused()) {
+                if (!gol.isPauseRequested()) {
                     generateNext(universe);
                     gol.drawUniverse(universe);
                 }
