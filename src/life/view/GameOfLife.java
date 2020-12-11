@@ -4,7 +4,7 @@ import life.model.Universe;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Hashtable;
+
 
 public class GameOfLife extends JFrame {
 
@@ -14,14 +14,12 @@ public class GameOfLife extends JFrame {
     private int minWidth;
     private int minHeight;
 
-    private boolean pauseRequested = true;
-
+    private boolean pauseRequested = true; // initial states of particular controls
     private boolean restartRequested = true;
+    private int requestedSpeed = 50;
+    private int requestedSize = 50;
 
-    private int requestedSpeed = 50; // the higher the value the smaller amount of time between iterations
-    private int requestedSize = 50; // size of the universe
-
-    static final Color TOP_PANEL_BCK = new Color(0x80,0xd8,0xff);
+    static final Color TOP_PANEL_BCK = new Color(0x80,0xd8,0xff); // color of particular GUI components
     static final Color BOTTOM_PANEL_BCK = new Color(0xff,0xff,0xff);
     static final Color BUTTONS_BCK = new Color(0xe3,0xf2,0xfd);
     static final Color FONT = new Color(0x00,0x00,0x00);
@@ -41,7 +39,6 @@ public class GameOfLife extends JFrame {
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BoxLayout(getContentPane(),BoxLayout.Y_AXIS));
-//        setMinimumSize(new Dimension(minWidth, minHeight));
         setSize(width,height);
         setVisible(true);
 
@@ -69,8 +66,10 @@ public class GameOfLife extends JFrame {
 
     public void drawUniverse(Universe universe) {
 
+        // updating statistics of current iteration
         detailsPanel.getGenerationNumberLabel().setText("Generation #" + universe.getGenerationNumber());
         detailsPanel.getAliveNumberLabel().setText("Alive: " + universe.getAliveNumber());
+
         universePanel.setUniverseArray(universe.getCurrentGeneration());
         universePanel.calculateSizeOfCells();
         universePanel.repaint();
@@ -122,7 +121,4 @@ public class GameOfLife extends JFrame {
         this.restartRequested = restartRequested;
     }
 
-//    public void calculateSizeOfCells() {
-//        universePanel.calculateSizeOfCells();
-//    }
 }

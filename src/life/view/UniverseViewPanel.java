@@ -11,8 +11,10 @@ class UniverseViewPanel extends JPanel {
     private int cols;
     private int universeWidth;  //what size (in pixes) the universe has at the moment
     private int universeHeight;
-    private int panelWidth;
+
+    private int panelWidth; // required to keep track of resizing of the panel
     private int panelHeight;
+
     private int cellWidth;
     private int cellHeight;
     private int leftUpperCornerX;
@@ -32,19 +34,14 @@ class UniverseViewPanel extends JPanel {
     protected void paintComponent(Graphics g) {
 
         Graphics2D g2d = (Graphics2D) g;
-
         super.paintComponent(g); //without that line there's a mess
 
         if (universeArray != null) {
 
             if (hasFrameBeenResized()) {
-
                 calculateSizeOfCells();
-
             }
-
             drawUniverse(g2d);
-
             drawGrid(g2d);
 
         }
@@ -84,8 +81,8 @@ class UniverseViewPanel extends JPanel {
 
     void drawUniverse(Graphics2D g2d) {
 
-        int y = leftUpperCornerY;                   // entity y coordinate
-        int x = leftUpperCornerX;                   // entity x coordinate
+        int y = leftUpperCornerY; // coordinates of a currently drawn cell
+        int x = leftUpperCornerX;
         Rectangle2D rectangle;
 
         for (int i = 0; i < rows; i++) {
@@ -121,6 +118,7 @@ class UniverseViewPanel extends JPanel {
         return false;
     }
 
+    /** Optimizes the size of a single cell based on available space on the panel */
     void calculateSizeOfCells() {
 
         // computing the size (in pixels) of the universe and single cell

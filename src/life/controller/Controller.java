@@ -1,6 +1,3 @@
-//TODO: refactor code to make it more MVC like ;)
-//TODO: clean up the code in general
-//TODO: take a look at warnings
 package life.controller;
 
 import static life.model.Algorithm.*;
@@ -12,7 +9,6 @@ public class Controller {
 
     public static void main(String[] args){
 
-//        Algorithm.simulateInConsole(12,new Universe());
         GameOfLife gol = new GameOfLife(900, 700);
         Universe universe = new Universe();
 
@@ -20,7 +16,7 @@ public class Controller {
 
             while (true) {
 
-                //starting / restarting the algorithm
+                // starting / restarting the algorithm
                 if ( gol.isRestartRequested() ) {
                     initUniverse(universe,gol.getRequestedSize());
 //                    gol.calculateSizeOfCells(); //to get rid of a matrix too big for the frame
@@ -28,12 +24,12 @@ public class Controller {
                     gol.setRestartRequested(false);
                 }
                 try {
-                    //waiting for the next iteration of the algorithm
+                    // waiting for the next iteration of the algorithm
                     Thread.sleep((long)(1000 * ((double)(101 - gol.getRequestedSpeed())/101) ));
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                //generating next iteration of the algorithm
+                // generating next iteration of the algorithm
                 if (!gol.isPauseRequested()) {
                     generateNext(universe);
                     gol.drawUniverse(universe);
@@ -46,28 +42,6 @@ public class Controller {
         simulationThread.start();
 
     }
-
-//    public static void clearConsole() {
-//        //Since in IntelliJ there is no way to clear console
-//        //that method just prints several blank lines instead
-//        for (int i = 0; i < 8; i++) {
-//            System.out.println("");
-//        }
-//
-//        //The following piece of code doesn't work in IntelliJ's terminal
-//        try {
-//            if (System.getProperty("os.name").contains("Windows"))
-//                new ProcessBuilder("cmd","/c","cls").inheritIO().start().waitFor();
-//            else
-//                Runtime.getRuntime().exec("clear");
-//        }
-//        catch (IOException | InterruptedException e) {}
-//    }
-
-//    public static void printToConsole(String text) {
-//        clearConsole();
-//        System.out.println(text);
-//    }
 
 }
 

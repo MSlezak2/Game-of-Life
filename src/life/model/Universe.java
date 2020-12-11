@@ -10,6 +10,13 @@ public class Universe {
         generationNumber = 0;
     }
 
+    public void incrementAliveNumber(){
+        aliveNumber++;
+    }
+    public void incrementGenerationNumber(){
+        generationNumber++;
+    }
+
     //getters
 
     public boolean[][] getCurrentGeneration() {
@@ -32,12 +39,6 @@ public class Universe {
     }
     public void setAliveNumber(int aliveNumber) {
         this.aliveNumber = aliveNumber;
-    }
-    public void incrementAliveNumber(){
-        aliveNumber++;
-    }
-    public void incrementGenerationNumber(){
-        generationNumber++;
     }
 
 }

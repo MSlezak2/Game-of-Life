@@ -13,14 +13,14 @@ class DetailsPanel extends JPanel {
     private JSlider speedSlider;
     private JSlider sizeSlider;
 
-    public DetailsPanel(GameOfLife got) {
+    public DetailsPanel(GameOfLife gol) {
 
-        setLayout(new GridLayout(2, 3, (int) (0.025 * got.getHeight()), (int) (0.005 * got.getHeight())));
+        setLayout(new GridLayout(2, 3, (int) (0.025 * gol.getHeight()), (int) (0.005 * gol.getHeight())));
         setBackground(GameOfLife.TOP_PANEL_BCK);
 
         formatLabels();
-        formatButtons(got);
-        formatSliders(got);
+        formatButtons(gol);
+        formatSliders(gol);
 
         add(generationNumberLabel);
         add(speedSlider);
@@ -31,15 +31,15 @@ class DetailsPanel extends JPanel {
 
     }
 
-    private void formatButtons(GameOfLife gof) {
+    private void formatButtons(GameOfLife gol) {
         pauseButton = new JButton("START");
         pauseButton.setFont(new Font(Font.SERIF,Font.BOLD,20));
         pauseButton.addActionListener(e -> {
-            if (gof.isPauseRequested() == true) {
-                gof.setPauseRequested(false);
+            if (gol.isPauseRequested() == true) {
+                gol.setPauseRequested(false);
                 pauseButton.setText("PAUSE");
             } else {
-                gof.setPauseRequested(true);
+                gol.setPauseRequested(true);
                 pauseButton.setText("START");
             }
         });
@@ -48,7 +48,7 @@ class DetailsPanel extends JPanel {
 
         restartButton = new JButton("RESTART");
         restartButton.setFont(new Font(Font.SERIF,Font.BOLD,20));
-        restartButton.addActionListener(e -> gof.setRestartRequested(true));
+        restartButton.addActionListener(e -> gol.setRestartRequested(true));
         restartButton.setForeground(GameOfLife.FONT);
         restartButton.setBackground(GameOfLife.BUTTONS_BCK);
     }
@@ -65,10 +65,10 @@ class DetailsPanel extends JPanel {
         aliveNumberLabel.setForeground(GameOfLife.FONT);
     }
 
-    private void formatSliders(GameOfLife gof) {
+    private void formatSliders(GameOfLife gol) {
 
-        speedSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, gof.getRequestedSpeed());
-        speedSlider.addChangeListener(e -> gof.setRequestedSpeed(speedSlider.getValue()));
+        speedSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, gol.getRequestedSpeed());
+        speedSlider.addChangeListener(e -> gol.setRequestedSpeed(speedSlider.getValue()));
         speedSlider.setMajorTickSpacing(25);
         speedSlider.setMinorTickSpacing(5);
         speedSlider.setPaintTicks(true);
@@ -76,11 +76,11 @@ class DetailsPanel extends JPanel {
         speedSlider.setOpaque(false);
         speedSlider.setForeground(GameOfLife.FONT);
 
-        sizeSlider = new JSlider(JSlider.HORIZONTAL, 10, 300, gof.getRequestedSize());
-        sizeSlider.addChangeListener(e -> gof.setRequestedSize(sizeSlider.getValue()));
+        sizeSlider = new JSlider(JSlider.HORIZONTAL, 10, 300, gol.getRequestedSize());
+        sizeSlider.addChangeListener(e -> gol.setRequestedSize(sizeSlider.getValue()));
 
         // customizing distribution of the labels
-        Hashtable labelTable = new Hashtable();
+        Hashtable<Integer,JComponent> labelTable = new Hashtable<>();
         labelTable.put(Integer.valueOf(10), new JLabel("10"));
         labelTable.putAll(sizeSlider.createStandardLabels(100, 100));
         sizeSlider.setLabelTable(labelTable);
